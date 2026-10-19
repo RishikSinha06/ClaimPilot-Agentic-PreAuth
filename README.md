@@ -7,6 +7,10 @@ decision (Approve / Partial / Query / Deny / Escalate), the amount, reasons with
 a letter to the hospital, an execution-sequence diagram and a full audit record. Risky cases wait for
 a human medical officer. All data is synthetic.
 
+**CA-3 submission:** [Presentation (PPT)](ClaimPilot_CA3.pptx) · [Project report (Docx)](ClaimPilot_CA3_Report.docx) · [Project guide](PROJECT_GUIDE.md)
+
+![All 13 slides](assets/ClaimPilot_CA3_overview.png)
+
 ## Open-source LLM used
 
 | | |
@@ -234,7 +238,8 @@ data/                          synthetic policies, clauses, tariffs, 12 labelled
 tests/                         87 tests incl. fake Ollama server and fault injection
 scripts/                       benchmark_llm.py, fault_injection.py, build_diagrams.py
 results/                       measured benchmark and fault-injection tables
-docs/                          CA-3 report (ClaimPilot_CA3_Report.docx) and presentation (ClaimPilot_CA3.pptx)
+ClaimPilot_CA3.pptx            CA-3 presentation
+ClaimPilot_CA3_Report.docx     CA-3 project report
 assets/                        architecture diagrams (PNG) and their sources
 audit/                         audit_log.jsonl, hash-chained (created at run time)
 ```
