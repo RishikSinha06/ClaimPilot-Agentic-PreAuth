@@ -1,0 +1,503 @@
+[
+  {
+    "claim_id": "PA-2026-0101",
+    "hospital": "Sahyadri City Hospital, Pune",
+    "policy_no": "P1001",
+    "patient": "Aarav Mehta",
+    "age": 17,
+    "gender": "M",
+    "request_date": "2026-10-12",
+    "admission_type": "emergency",
+    "treatment_type": "surgical",
+    "diagnosis": "Acute appendicitis",
+    "icd10": "K35.80",
+    "proposed_treatment": "Laparoscopic appendectomy",
+    "costs": {
+      "room_rent_per_day": 4500,
+      "room_days": 3,
+      "icu_per_day": 0,
+      "icu_days": 0,
+      "surgery_ot": 70000,
+      "medicines_consumables": 25000,
+      "investigations": 12000,
+      "other": 9500
+    },
+    "documents": [
+      "preauth_form",
+      "id_card",
+      "doctor_notes",
+      "investigation_reports"
+    ],
+    "doctor_notes": "17 yr male, c/o periumbilical pain shifting to RIF for 18 hours with fever and vomiting. USG abdomen: inflamed appendix 9 mm. No h/o DM/HTN. No significant past history. Advised emergency laparoscopic appendectomy.",
+    "expected_decision": "APPROVE",
+    "gold_extraction": {
+      "procedure_key": "appendectomy",
+      "chronic_conditions": [],
+      "cosmetic_intent": false,
+      "functional_need": false,
+      "accident": false
+    },
+    "expected_amount": 130000
+  },
+  {
+    "claim_id": "PA-2026-0102",
+    "hospital": "NetraJyoti Eye Hospital, Pune",
+    "policy_no": "P1001",
+    "patient": "Priya Mehta",
+    "age": 52,
+    "gender": "F",
+    "request_date": "2026-10-10",
+    "admission_type": "planned",
+    "treatment_type": "surgical",
+    "diagnosis": "Age-related cataract, right eye",
+    "icd10": "H25.9",
+    "proposed_treatment": "Phacoemulsification with foldable IOL, right eye",
+    "costs": {
+      "room_rent_per_day": 3000,
+      "room_days": 1,
+      "icu_per_day": 0,
+      "icu_days": 0,
+      "surgery_ot": 42000,
+      "medicines_consumables": 15000,
+      "investigations": 3000,
+      "other": 2000
+    },
+    "documents": [
+      "preauth_form",
+      "id_card",
+      "doctor_notes",
+      "investigation_reports"
+    ],
+    "doctor_notes": "Pt c/o progressive blurring of vision in right eye x 1 yr. Visual acuity 6/36. Grade 3 nuclear sclerosis. No DM or HTN. Planned phaco with premium foldable IOL.",
+    "expected_decision": "PARTIAL",
+    "gold_extraction": {
+      "procedure_key": "cataract",
+      "chronic_conditions": [],
+      "cosmetic_intent": false,
+      "functional_need": false,
+      "accident": false
+    },
+    "expected_amount": 40000
+  },
+  {
+    "claim_id": "PA-2026-0103",
+    "hospital": "Deenanath Ortho Centre, Pune",
+    "policy_no": "P1002",
+    "patient": "Suresh Kulkarni",
+    "age": 68,
+    "gender": "M",
+    "request_date": "2026-10-09",
+    "admission_type": "planned",
+    "treatment_type": "surgical",
+    "diagnosis": "Primary osteoarthritis, left knee",
+    "icd10": "M17.12",
+    "proposed_treatment": "Total knee replacement, left",
+    "costs": {
+      "room_rent_per_day": 5000,
+      "room_days": 5,
+      "icu_per_day": 0,
+      "icu_days": 0,
+      "surgery_ot": 150000,
+      "medicines_consumables": 90000,
+      "investigations": 15000,
+      "other": 20000
+    },
+    "documents": [
+      "preauth_form",
+      "id_card",
+      "doctor_notes",
+      "investigation_reports"
+    ],
+    "doctor_notes": "K/c/o OA both knees, declared at proposal. Left knee Kellgren-Lawrence grade 4; failed conservative management x 2 yrs. Planned TKR with cemented implant. Patient opted for single deluxe room.",
+    "expected_decision": "PARTIAL",
+    "gold_extraction": {
+      "procedure_key": "joint replacement",
+      "chronic_conditions": [
+        {
+          "condition": "osteoarthritis",
+          "duration_years": null
+        }
+      ],
+      "cosmetic_intent": false,
+      "functional_need": false,
+      "accident": false
+    },
+    "expected_amount": 120000
+  },
+  {
+    "claim_id": "PA-2026-0104",
+    "hospital": "Lokmanya Hospital, Pune",
+    "policy_no": "P1004",
+    "patient": "Imran Shaikh",
+    "age": 41,
+    "gender": "M",
+    "request_date": "2026-10-12",
+    "admission_type": "planned",
+    "treatment_type": "surgical",
+    "diagnosis": "Right inguinal hernia",
+    "icd10": "K40.90",
+    "proposed_treatment": "Laparoscopic hernia repair (TEP) with mesh",
+    "costs": {
+      "room_rent_per_day": 3000,
+      "room_days": 2,
+      "icu_per_day": 0,
+      "icu_days": 0,
+      "surgery_ot": 55000,
+      "medicines_consumables": 22000,
+      "investigations": 6000,
+      "other": 6000
+    },
+    "documents": [
+      "preauth_form",
+      "id_card",
+      "doctor_notes",
+      "investigation_reports"
+    ],
+    "doctor_notes": "Reducible swelling in right groin x 8 mths, increases on coughing. USG confirms indirect inguinal hernia. Planned laparoscopic TEP repair with mesh.",
+    "expected_decision": "DENY",
+    "gold_extraction": {
+      "procedure_key": "hernia",
+      "chronic_conditions": [],
+      "cosmetic_intent": false,
+      "functional_need": false,
+      "accident": false
+    },
+    "expected_amount": 0
+  },
+  {
+    "claim_id": "PA-2026-0105",
+    "hospital": "Aesthetica Clinic, Pune",
+    "policy_no": "P1001",
+    "patient": "Rohan Mehta",
+    "age": 49,
+    "gender": "M",
+    "request_date": "2026-10-11",
+    "admission_type": "planned",
+    "treatment_type": "surgical",
+    "diagnosis": "Dorsal nasal hump",
+    "icd10": "Z41.1",
+    "proposed_treatment": "Rhinoplasty",
+    "costs": {
+      "room_rent_per_day": 6000,
+      "room_days": 1,
+      "icu_per_day": 0,
+      "icu_days": 0,
+      "surgery_ot": 130000,
+      "medicines_consumables": 30000,
+      "investigations": 5000,
+      "other": 9000
+    },
+    "documents": [
+      "preauth_form",
+      "id_card",
+      "doctor_notes",
+      "investigation_reports"
+    ],
+    "doctor_notes": "Patient requests correction of dorsal nasal hump for aesthetic reasons. No nasal obstruction or breathing difficulty. No h/o trauma.",
+    "expected_decision": "DENY",
+    "gold_extraction": {
+      "procedure_key": "rhinoplasty",
+      "chronic_conditions": [],
+      "cosmetic_intent": true,
+      "functional_need": false,
+      "accident": false
+    },
+    "expected_amount": 0
+  },
+  {
+    "claim_id": "PA-2026-0106",
+    "hospital": "Ruby Hall Clinic, Pune",
+    "policy_no": "P1003",
+    "patient": "Neha Iyer",
+    "age": 29,
+    "gender": "F",
+    "request_date": "2026-10-13",
+    "admission_type": "emergency",
+    "treatment_type": "medical",
+    "diagnosis": "Dengue fever with thrombocytopenia",
+    "icd10": "A97.1",
+    "proposed_treatment": "Medical management, IV fluids, platelet monitoring",
+    "costs": {
+      "room_rent_per_day": 3500,
+      "room_days": 4,
+      "icu_per_day": 0,
+      "icu_days": 0,
+      "surgery_ot": 0,
+      "medicines_consumables": 18000,
+      "investigations": 9000,
+      "other": 6000
+    },
+    "documents": [
+      "preauth_form",
+      "id_card",
+      "doctor_notes"
+    ],
+    "doctor_notes": "High grade fever x 4 days with myalgia and petechiae. Platelet count reported low by referring clinic. Admit for IV fluids and monitoring. NS1 and CBC reports to follow.",
+    "expected_decision": "QUERY",
+    "query_response": {
+      "documents_added": [
+        "investigation_reports"
+      ],
+      "notes_append": "NS1 antigen positive. CBC: platelet count 62,000 per microlitre.",
+      "expected_decision_after": "APPROVE"
+    },
+    "gold_extraction": {
+      "procedure_key": "medical management",
+      "chronic_conditions": [],
+      "cosmetic_intent": false,
+      "functional_need": false,
+      "accident": false
+    },
+    "expected_amount": 0
+  },
+  {
+    "claim_id": "PA-2026-0107",
+    "hospital": "Jehangir Heart Institute, Pune",
+    "policy_no": "P1002",
+    "patient": "Lata Kulkarni",
+    "age": 64,
+    "gender": "F",
+    "request_date": "2026-10-10",
+    "admission_type": "planned",
+    "treatment_type": "surgical",
+    "diagnosis": "Coronary artery disease, double vessel",
+    "icd10": "I25.10",
+    "proposed_treatment": "PTCA with drug-eluting stent to LAD",
+    "costs": {
+      "room_rent_per_day": 3000,
+      "room_days": 3,
+      "icu_per_day": 6000,
+      "icu_days": 1,
+      "surgery_ot": 120000,
+      "medicines_consumables": 85000,
+      "investigations": 20000,
+      "other": 10000
+    },
+    "documents": [
+      "preauth_form",
+      "id_card",
+      "doctor_notes",
+      "investigation_reports"
+    ],
+    "doctor_notes": "Mrs Lata Kulkarni, 64F, c/o exertional chest pain x 3 mths. K/c/o HTN since 2018 on Tab. Amlodipine 5mg once daily. T2DM x 4 yrs on Tab. Metformin 500mg twice daily. CAG shows 85% LAD stenosis. Planned PTCA with DES. Attendant contact 9000000001.",
+    "expected_decision": "ESCALATE",
+    "gold_extraction": {
+      "procedure_key": "angioplasty",
+      "chronic_conditions": [
+        {
+          "condition": "hypertension",
+          "duration_years": 8
+        },
+        {
+          "condition": "diabetes",
+          "duration_years": 4
+        }
+      ],
+      "cosmetic_intent": false,
+      "functional_need": false,
+      "accident": false
+    },
+    "expected_amount": 0
+  },
+  {
+    "claim_id": "PA-2026-0108",
+    "hospital": "Shree Multispeciality Hospital, Pune",
+    "policy_no": "P1001",
+    "patient": "Rohan Mehta",
+    "age": 49,
+    "gender": "M",
+    "request_date": "2026-10-12",
+    "admission_type": "planned",
+    "treatment_type": "surgical",
+    "diagnosis": "Symptomatic cholelithiasis",
+    "icd10": "K80.20",
+    "proposed_treatment": "Laparoscopic cholecystectomy",
+    "costs": {
+      "room_rent_per_day": 5000,
+      "room_days": 3,
+      "icu_per_day": 0,
+      "icu_days": 0,
+      "surgery_ot": 150000,
+      "medicines_consumables": 45000,
+      "investigations": 15000,
+      "other": 35000
+    },
+    "documents": [
+      "preauth_form",
+      "id_card",
+      "doctor_notes",
+      "investigation_reports"
+    ],
+    "doctor_notes": "Recurrent RUQ pain after fatty meals x 6 mths. USG: multiple gallstones, largest 12 mm. No jaundice. Planned elective laparoscopic cholecystectomy.",
+    "expected_decision": "PARTIAL",
+    "gold_extraction": {
+      "procedure_key": "gallstone",
+      "chronic_conditions": [],
+      "cosmetic_intent": false,
+      "functional_need": false,
+      "accident": false
+    },
+    "expected_amount": 150000
+  },
+  {
+    "claim_id": "PA-2026-0109",
+    "hospital": "Sancheti Hospital, Pune",
+    "policy_no": "P1005",
+    "patient": "Meena Joshi",
+    "age": 58,
+    "gender": "F",
+    "request_date": "2026-10-11",
+    "admission_type": "emergency",
+    "treatment_type": "medical",
+    "diagnosis": "Community-acquired pneumonia",
+    "icd10": "J18.9",
+    "proposed_treatment": "IV antibiotics, oxygen support",
+    "costs": {
+      "room_rent_per_day": 3000,
+      "room_days": 5,
+      "icu_per_day": 0,
+      "icu_days": 0,
+      "surgery_ot": 0,
+      "medicines_consumables": 28000,
+      "investigations": 12000,
+      "other": 8000
+    },
+    "documents": [
+      "preauth_form",
+      "id_card",
+      "doctor_notes",
+      "investigation_reports"
+    ],
+    "doctor_notes": "Fever, productive cough and SOB x 5 days. SpO2 91% on room air. CXR: right lower lobe consolidation. Admit for IV antibiotics.",
+    "expected_decision": "DENY",
+    "gold_extraction": {
+      "procedure_key": "medical management",
+      "chronic_conditions": [],
+      "cosmetic_intent": false,
+      "functional_need": false,
+      "accident": false
+    },
+    "expected_amount": 0
+  },
+  {
+    "claim_id": "PA-2026-0110",
+    "hospital": "Noble Hospital, Pune",
+    "policy_no": "P1003",
+    "patient": "Karthik Rao",
+    "age": 34,
+    "gender": "M",
+    "request_date": "2026-10-13",
+    "admission_type": "emergency",
+    "treatment_type": "surgical",
+    "diagnosis": "Closed fracture shaft of right femur",
+    "icd10": "S72.301A",
+    "proposed_treatment": "Open reduction internal fixation with intramedullary nail",
+    "costs": {
+      "room_rent_per_day": 3500,
+      "room_days": 5,
+      "icu_per_day": 0,
+      "icu_days": 0,
+      "surgery_ot": 90000,
+      "medicines_consumables": 45000,
+      "investigations": 12000,
+      "other": 10500
+    },
+    "documents": [
+      "preauth_form",
+      "id_card",
+      "doctor_notes",
+      "investigation_reports",
+      "mlc_fir"
+    ],
+    "doctor_notes": "Pt sustained two-wheeler RTA 6 hours ago. Deformity and swelling of right thigh. X-ray: midshaft femur fracture. MLC registered. Planned IM nailing.",
+    "expected_decision": "APPROVE",
+    "gold_extraction": {
+      "procedure_key": "fracture fixation",
+      "chronic_conditions": [],
+      "cosmetic_intent": false,
+      "functional_need": false,
+      "accident": true
+    },
+    "expected_amount": 175000
+  },
+  {
+    "claim_id": "PA-2026-0111",
+    "hospital": "Noble Hospital, Pune",
+    "policy_no": "P1003",
+    "patient": "Karthik Rao",
+    "age": 34,
+    "gender": "M",
+    "request_date": "2026-10-13",
+    "admission_type": "planned",
+    "treatment_type": "surgical",
+    "diagnosis": "Para-umbilical hernia",
+    "icd10": "K42.9",
+    "proposed_treatment": "Laparoscopic hernia repair with mesh",
+    "costs": {
+      "room_rent_per_day": 3500,
+      "room_days": 2,
+      "icu_per_day": 0,
+      "icu_days": 0,
+      "surgery_ot": 60000,
+      "medicines_consumables": 20000,
+      "investigations": 6000,
+      "other": 5000
+    },
+    "documents": [
+      "preauth_form",
+      "id_card",
+      "doctor_notes",
+      "investigation_reports"
+    ],
+    "doctor_notes": "C/o swelling near umbilicus x 6 mths, increases on straining. No h/o DM/HTN/asthma. Not a known case of thyroid disorder. USG: 2 cm para-umbilical defect. Planned lap hernia repair with mesh.",
+    "expected_decision": "APPROVE",
+    "gold_extraction": {
+      "procedure_key": "hernia",
+      "chronic_conditions": [],
+      "cosmetic_intent": false,
+      "functional_need": false,
+      "accident": false
+    },
+    "expected_amount": 98000
+  },
+  {
+    "claim_id": "PA-2026-0112",
+    "hospital": "Sahyadri City Hospital, Pune",
+    "policy_no": "P1001",
+    "patient": "Priya Mehta",
+    "age": 52,
+    "gender": "F",
+    "request_date": "2026-10-13",
+    "admission_type": "planned",
+    "treatment_type": "surgical",
+    "diagnosis": "Impacted mandibular third molar with pericoronitis",
+    "icd10": "K01.1",
+    "proposed_treatment": "Surgical removal of impacted third molar under GA",
+    "costs": {
+      "room_rent_per_day": 3000,
+      "room_days": 1,
+      "icu_per_day": 0,
+      "icu_days": 0,
+      "surgery_ot": 25000,
+      "medicines_consumables": 6000,
+      "investigations": 2500,
+      "other": 1500
+    },
+    "documents": [
+      "preauth_form",
+      "id_card",
+      "doctor_notes",
+      "investigation_reports"
+    ],
+    "doctor_notes": "C/o recurrent pain and swelling around lower left third molar x 3 mths. No h/o trauma or RTA. OPG shows mesioangular impaction. Planned surgical extraction under GA as day care.",
+    "expected_decision": "DENY",
+    "gold_extraction": {
+      "procedure_key": "dental surgery",
+      "chronic_conditions": [],
+      "cosmetic_intent": false,
+      "functional_need": false,
+      "accident": false
+    },
+    "expected_amount": 0
+  }
+]

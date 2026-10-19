@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+.pytest_cache/
+audit/
+results/*.json
+assets/diagrams/*.wrap.html

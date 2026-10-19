@@ -1,0 +1,162 @@
+{
+  "P1001": {
+    "policy_no": "P1001",
+    "product": "Arogya Plus Family Floater",
+    "insured": [
+      "Rohan Mehta",
+      "Priya Mehta",
+      "Aarav Mehta"
+    ],
+    "start_date": "2023-04-01",
+    "end_date": "2027-03-31",
+    "sum_insured": 500000,
+    "utilised": 50000,
+    "room_rent_cap_per_day": 5000,
+    "icu_cap_per_day": 10000,
+    "copay_pct": 0,
+    "initial_waiting_days": 30,
+    "specific_waiting_months": 24,
+    "specific_waiting_conditions": [
+      "cataract",
+      "hernia",
+      "joint replacement",
+      "kidney stone",
+      "gallstone"
+    ],
+    "ped_waiting_months": 36,
+    "declared_ped": [],
+    "waiting_waived": false,
+    "sub_limits": {
+      "cataract": 40000
+    },
+    "exclusions": [
+      "cosmetic",
+      "dental",
+      "infertility",
+      "obesity surgery"
+    ]
+  },
+  "P1002": {
+    "policy_no": "P1002",
+    "product": "Senior Care Shield",
+    "insured": [
+      "Suresh Kulkarni",
+      "Lata Kulkarni"
+    ],
+    "start_date": "2025-01-15",
+    "end_date": "2027-01-14",
+    "sum_insured": 300000,
+    "utilised": 0,
+    "room_rent_cap_per_day": 3000,
+    "icu_cap_per_day": 6000,
+    "copay_pct": 20,
+    "initial_waiting_days": 30,
+    "specific_waiting_months": 12,
+    "specific_waiting_conditions": [
+      "cataract",
+      "hernia"
+    ],
+    "ped_waiting_months": 12,
+    "declared_ped": [
+      "osteoarthritis"
+    ],
+    "waiting_waived": false,
+    "sub_limits": {
+      "cataract": 30000,
+      "joint replacement": 150000
+    },
+    "exclusions": [
+      "cosmetic",
+      "dental",
+      "infertility"
+    ]
+  },
+  "P1003": {
+    "policy_no": "P1003",
+    "product": "Corporate Group Health (TechNova Pvt Ltd)",
+    "insured": [
+      "Neha Iyer",
+      "Karthik Rao"
+    ],
+    "start_date": "2026-08-20",
+    "end_date": "2027-08-19",
+    "sum_insured": 200000,
+    "utilised": 0,
+    "room_rent_cap_per_day": 4000,
+    "icu_cap_per_day": 8000,
+    "copay_pct": 0,
+    "initial_waiting_days": 30,
+    "specific_waiting_months": 24,
+    "specific_waiting_conditions": [
+      "cataract",
+      "hernia"
+    ],
+    "ped_waiting_months": 36,
+    "declared_ped": [],
+    "waiting_waived": true,
+    "sub_limits": {},
+    "exclusions": [
+      "cosmetic",
+      "infertility"
+    ]
+  },
+  "P1004": {
+    "policy_no": "P1004",
+    "product": "Basic Shield Individual",
+    "insured": [
+      "Imran Shaikh"
+    ],
+    "start_date": "2026-09-25",
+    "end_date": "2027-09-24",
+    "sum_insured": 300000,
+    "utilised": 0,
+    "room_rent_cap_per_day": 3000,
+    "icu_cap_per_day": 6000,
+    "copay_pct": 10,
+    "initial_waiting_days": 30,
+    "specific_waiting_months": 24,
+    "specific_waiting_conditions": [
+      "cataract",
+      "hernia",
+      "joint replacement"
+    ],
+    "ped_waiting_months": 36,
+    "declared_ped": [],
+    "waiting_waived": false,
+    "sub_limits": {},
+    "exclusions": [
+      "cosmetic",
+      "dental",
+      "infertility"
+    ]
+  },
+  "P1005": {
+    "policy_no": "P1005",
+    "product": "Basic Shield Individual",
+    "insured": [
+      "Meena Joshi"
+    ],
+    "start_date": "2025-07-01",
+    "end_date": "2026-06-30",
+    "sum_insured": 300000,
+    "utilised": 0,
+    "room_rent_cap_per_day": 3000,
+    "icu_cap_per_day": 6000,
+    "copay_pct": 10,
+    "initial_waiting_days": 30,
+    "specific_waiting_months": 24,
+    "specific_waiting_conditions": [
+      "cataract",
+      "hernia"
+    ],
+    "ped_waiting_months": 36,
+    "declared_ped": [],
+    "waiting_waived": false,
+    "sub_limits": {},
+    "exclusions": [
+      "cosmetic",
+      "dental",
+      "infertility"
+    ]
+  }
+}

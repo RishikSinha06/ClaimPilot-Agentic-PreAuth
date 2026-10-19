@@ -1,0 +1,143 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 2400px; background: #fff; font-family: Inter, "Segoe UI", Helvetica, Arial, sans-serif; color: #101828; padding: 26px 40px 30px; position: relative; }
+  h1 { font-size: 34px; font-weight: 800; letter-spacing: -.5px; }
+  .st { font-size: 17px; color: #475467; margin: 8px 0 18px; }
+  .cols { display: grid; grid-template-columns: 540px 540px 540px 1fr; gap: 64px; align-items: start; position: relative; z-index: 1; }
+  .col { border-radius: 14px; border: 2px solid; padding: 12px 14px 16px; }
+  .ct { font-size: 18px; font-weight: 800; margin-bottom: 4px; } .cs { font-size: 13.5px; color: #475467; margin-bottom: 10px; }
+  .n { background: #fff; border: 1.6px solid #98A2B3; border-radius: 10px; padding: 8px 11px; margin-bottom: 22px; font-size: 14px; line-height: 1.38; position: relative; }
+  .n b.k { display: inline-block; min-width: 30px; color: #fff; border-radius: 6px; padding: 0 6px; margin-right: 6px; font-size: 12.5px; text-align: center; }
+  .n .ex { display: block; font-size: 12.5px; color: #475467; margin-top: 3px; }
+  .n .ex i { font-style: normal; font-weight: 700; color: #344054; }
+  .q { background: #FFFBEB; border: 2px solid #B54708; border-radius: 22px; text-align: center; font-weight: 800; padding: 9px 12px; }
+  .elig { background: #EEF4FF; border-color: #3563E9; } .elig b.k { background: #3563E9; }
+  .wf { background: #EEF4FF; border-color: #3563E9; } .wf b.k { background: #1F5FAE; }
+  .crit { background: #FFF4E5; border-color: #E07B00; } .crit b.k { background: #E07B00; }
+  .dec { background: #E8F6EE; border-color: #12804F; }
+  .rowd { display: flex; align-items: center; gap: 36px; margin-bottom: 18px; }
+  .rowd .q { width: 200px; flex: none; margin: 0; font-size: 14px; padding: 9px 8px; }
+  .out { flex: 1; border-radius: 10px; border: 2px solid; padding: 8px 12px; font-size: 14px; line-height: 1.35; }
+  .out b { font-size: 16px; }
+  .side { border-radius: 10px; border: 2px dashed; padding: 8px 12px; font-size: 14px; line-height: 1.35; margin-top: 8px; background: #fff; }
+  .red { border-color: #D92D20 !important; background: #FDECEA !important; }
+  svg#wires { position: absolute; left: 0; top: 0; z-index: 2; pointer-events: none; }
+  .wl { font: 700 12.5px Inter, sans-serif; }
+  .legend { margin-top: 18px; font-size: 13.5px; color: #475467; }
+</style></head>
+<body>
+<h1>Decision logic — every rule the agents apply, in order</h1>
+<div class="st">Eligibility and payable maths run in deterministic Python tools (never in the LLM) · examples in grey are from the 12 labelled test cases · clause numbers refer to the synthetic policy wording</div>
+<div class="cols">
+  <div class="col elig">
+    <div class="ct">① Eligibility · Coverage Executor</div><div class="cs">All six checks run and are listed; any FAIL makes the claim ineligible.</div>
+    <div class="n" id="e1"><b class="k">E1</b><b>Member covered?</b> patient is on the policy schedule</div>
+    <div class="n" id="e2"><b class="k">E2</b><b>Policy in force?</b> start ≤ request date ≤ end · clause 2.1<span class="ex"><i>PA-0109</i> policy ended 30 Jun 2026 → FAIL</span></div>
+    <div class="n" id="e3"><b class="k">E3</b><b>Initial waiting 30 days</b> · clause 4.1<br>bypass: accident, or group policy waiver<span class="ex"><i>PA-0104</i> policy 17 days old → FAIL · <i>PA-0110</i> accident → bypass</span></div>
+    <div class="n" id="e4"><b class="k">E4</b><b>Specific waiting</b> 12–24 months for listed procedures (cataract, hernia, joint replacement…) · 4.2<span class="ex"><i>PA-0104</i> hernia needs 24 months → FAIL</span></div>
+    <div class="n" id="e5"><b class="k">E5</b><b>Permanent exclusions</b> cosmetic without functional need or accident, dental, infertility… · 5.1 / 5.2<span class="ex"><i>PA-0105</i> rhinoplasty “aesthetic”, no obstruction → FAIL · <i>PA-0112</i> dental → FAIL</span></div>
+    <div class="n" id="e6"><b class="k">E6</b><b>Pre-existing disease (PED)</b> · 4.3<br>declared + related to treatment → PED waiting<br>present before inception but not declared → WARN for Critic<span class="ex"><i>PA-0103</i> osteoarthritis declared, 12 m served → PASS · <i>PA-0107</i> HTN 8 y undeclared → WARN</span></div>
+    <div class="q" id="eg">◆ any FAIL?</div>
+  </div>
+
+  <div class="col wf">
+    <div class="ct">② Payable waterfall · Coverage Executor</div><div class="cs">Runs only if eligible. Each step is a line in the letter.</div>
+    <div class="n" id="w0"><b class="k">W0</b><b>Requested</b> = room + ICU + surgery/OT + medicines + investigations + other</div>
+    <div class="n" id="w1"><b class="k">W1</b><b>Room-rent proportionate deduction</b> · 3.4<br>ratio = room cap ÷ actual room rent, applied to room, surgery/OT and other (not to medicines or tests)<span class="ex"><i>PA-0103</i> ₹5,000/day vs ₹3,000 cap → 60 % → −₹78,000</span></div>
+    <div class="n" id="w2"><b class="k">W2</b><b>ICU above cap</b> · 3.4</div>
+    <div class="n" id="w3"><b class="k">W3</b><b>Procedure sub-limit</b> · 3.6<span class="ex"><i>PA-0102</i> cataract capped at ₹40,000 · <i>PA-0103</i> knee at ₹1,50,000</span></div>
+    <div class="n red" id="w4"><b class="k" style="background:#D92D20">W4</b><b>Reasonable &amp; customary cap</b> · 6.3<br>tariff ceiling — applied only when the Critic sends the case back<span class="ex"><i>PA-0108</i> ₹2,60,000 → ₹1,50,000</span></div>
+    <div class="n" id="w5"><b class="k">W5</b><b>Co-pay %</b> borne by the insured · 3.5<span class="ex"><i>PA-0103</i> 20 % → −₹30,000</span></div>
+    <div class="n" id="w6"><b class="k">W6</b><b>Balance sum insured</b> → payable (provisional)</div>
+  </div>
+
+  <div class="col crit">
+    <div class="ct">③ Critic · independent checks</div><div class="cs">Re-checks everyone's work; its actions decide the route.</div>
+    <div class="n" id="c1"><b class="k">C1–2</b><b>Documents · ICD-10 vs diagnosis</b> → action <b>query</b><span class="ex"><i>PA-0106</i> investigation reports missing → query</span></div>
+    <div class="n" id="c2"><b class="k">C3–6</b><b>LLM output</b>: JSON valid · evidence grounded (durations from the text) · LLM vs rules agree · no PII sent → disagreement that changes the outcome → <b>escalate</b></div>
+    <div class="n" id="c3"><b class="k">C7</b><b>PED disclosure</b>: undisclosed pre-existing disease → <b>escalate</b><span class="ex"><i>PA-0107</i> hypertension, diabetes → escalate</span></div>
+    <div class="n" id="c4"><b class="k">C8</b><b>Tariff benchmark</b>: estimate above ceiling + 25 % → <b>revise</b><span class="ex"><i>PA-0108</i> +73 % → revise once, then PASS</span></div>
+    <div class="n" id="c5"><b class="k">C9–11</b><b>Money</b>: independent recomputation must match · 0 ≤ payable ≤ requested · payable above ₹3,00,000 authority limit → <b>escalate</b></div>
+    <div class="q" id="cv">◆ verdict: REVISE · HOLD · PASS<br><span style="font-weight:500;font-size:12.5px">confidence = 1 − penalties (low 5 %, medium 15 %, high 30 %)</span></div>
+  </div>
+
+  <div class="col dec">
+    <div class="ct">④ Decision ladder · first match wins</div><div class="cs">Then the letter: template → de-identify → LLM polish → re-identify → faithfulness check.</div>
+    <div class="rowd"><div class="q" id="d1">◆ not eligible on grounds both extractors support?</div><div class="out" id="o1" style="background:#FDECEA;border-color:#B42318;color:#7A271A"><b>DENY</b> · reasons cite clauses<br><span style="font-size:12.5px">PA-0104 · 0105 · 0109 · 0112</span></div></div>
+    <div class="rowd"><div class="q" id="d2">◆ escalate action or disputed denial?</div><div class="out" id="o2" style="background:#F2ECFA;border-color:#6B3FA0;color:#53389E"><b>ESCALATE</b> · wait for medical officer<br><span style="font-size:12.5px">PA-0107</span></div></div>
+    <div class="rowd"><div class="q" id="d3">◆ query action?</div><div class="out" id="o3" style="background:#E7F0FB;border-color:#1F5FAE;color:#1F4F99"><b>QUERY</b> · list what is missing<br><span style="font-size:12.5px">PA-0106</span></div></div>
+    <div class="rowd"><div class="q" id="d4">◆ payable &lt; requested?</div><div class="out" id="o4" style="background:#FFF4DC;border-color:#8A5A00;color:#7A4A00"><b>PARTIAL</b> · each deduction + clause<br><span style="font-size:12.5px">PA-0102 · 0103 · 0108</span></div></div>
+    <div class="rowd"><div class="q" id="d5" style="visibility:hidden">◆</div><div class="out" id="o5" style="background:#E6F6EE;border-color:#0F7B4D;color:#05603A"><b>APPROVE</b> · full estimate<br><span style="font-size:12.5px">PA-0101 · 0110 · 0111</span></div></div>
+    <div class="side" id="mo" style="border-color:#8A5A00;background:#FFF8E6"><b>🩺 Medical officer</b> approves / denies / queries with remarks → reasons follow the escalation cause → decision and letter re-drafted, audit-logged</div>
+    <div class="side" id="ho" style="border-color:#1F5FAE;background:#EFF5FE"><b>🏥 Hospital</b> uploads the requested documents → whole workflow re-runs → PA-0106 becomes APPROVE ₹47,000</div>
+  </div>
+</div>
+<div class="legend">Arrows: grey = normal flow · dashed = path when a condition is met · red = Critic → Executor revision loop (max 2 rounds)</div>
+<svg id="wires"><defs>
+  <marker id="g" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#475467"/></marker>
+  <marker id="r" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#D92D20"/></marker>
+</defs></svg>
+<script>
+const svg = document.getElementById('wires');
+svg.setAttribute('width', document.body.scrollWidth);
+svg.setAttribute('height', document.querySelector('.legend').getBoundingClientRect().bottom + 28);
+document.body.style.height = (document.querySelector('.legend').getBoundingClientRect().bottom + 28) + 'px';
+const R = id => document.getElementById(id).getBoundingClientRect();
+function path(d, opts = {}) {
+  const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  p.setAttribute('d', d); p.setAttribute('fill', 'none');
+  p.setAttribute('stroke', opts.color || '#475467'); p.setAttribute('stroke-width', opts.w || 2.2);
+  if (opts.dash) p.setAttribute('stroke-dasharray', '6 5');
+  p.setAttribute('marker-end', `url(#${opts.marker || 'g'})`); svg.appendChild(p);
+}
+function label(x, y, t, color) {
+  const e = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  e.setAttribute('x', x); e.setAttribute('y', y); e.setAttribute('class', 'wl'); e.setAttribute('fill', color || '#475467'); e.textContent = t;
+  const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+  svg.appendChild(bg); svg.appendChild(e);
+  const b = e.getBBox(); bg.setAttribute('x', b.x - 3); bg.setAttribute('y', b.y - 1); bg.setAttribute('width', b.width + 6); bg.setAttribute('height', b.height + 2); bg.setAttribute('fill', '#fff');
+}
+function down(a, b) { const A = R(a), B = R(b); const x = A.left + A.width / 2; path(`M${x},${A.bottom + 1} L${x},${B.top - 2}`); }
+['e1','e2','e3','e4','e5','e6','eg'].reduce((a, b) => (down(a, b), b));
+['w0','w1','w2','w3','w4','w5','w6'].reduce((a, b) => (down(a, b), b));
+['c1','c2','c3','c4','c5','cv'].reduce((a, b) => (down(a, b), b));
+// eligibility gate -> waterfall (no) / critic (yes)
+let A = R('eg'), B = R('w0');
+let gx = A.right + 32;
+path(`M${A.right},${A.top + A.height / 2} L${gx},${A.top + A.height / 2} L${gx},${B.top + B.height / 2} L${B.left - 2},${B.top + B.height / 2}`);
+label(A.right + 4, A.top + A.height / 2 - 8, 'no');
+const C1 = R('c1');
+const yb = A.bottom + 30;
+path(`M${A.left + A.width / 2},${A.bottom} L${A.left + A.width / 2},${yb} L${C1.left - 30},${yb} L${C1.left - 30},${C1.top + 20} L${C1.left - 2},${C1.top + 20}`, {dash: true});
+label(A.left + A.width / 2 + 10, yb - 8, 'yes → skip the waterfall, go to the Critic');
+// waterfall end -> critic
+A = R('w6');
+const cx = C1.left - 16;
+path(`M${A.right},${A.top + A.height / 2} L${cx},${A.top + A.height / 2} L${cx},${C1.top + 40} L${C1.left - 2},${C1.top + 40}`);
+// critic verdict -> W4 (revise)
+A = R('cv'); B = R('w4');
+path(`M${A.left},${A.top + A.height / 2} C${A.left - 120},${A.top + A.height / 2} ${B.right + 120},${B.top + B.height / 2} ${B.right + 2},${B.top + B.height / 2}`, {color: '#D92D20', w: 3, marker: 'r'});
+label(B.right + 22, B.top + B.height / 2 + 34, 'REVISE: cap at tariff', '#D92D20');
+// verdict -> decision ladder
+B = R('d1');
+const dx = B.left - 24;
+path(`M${A.right},${A.top + A.height / 2} L${dx},${A.top + A.height / 2} L${dx},${B.top + B.height / 2} L${B.left - 2},${B.top + B.height / 2}`);
+label(A.right + 6, A.top + A.height / 2 - 8, 'PASS / HOLD');
+// ladder
+for (let i = 1; i <= 4; i++) {
+  const q = R('d' + i), o = R('o' + i);
+  path(`M${q.right},${q.top + q.height / 2} L${o.left - 2},${q.top + q.height / 2}`);
+  label(q.right + 6, q.top + q.height / 2 - 6, 'yes');
+  if (i < 4) { const n = R('d' + (i + 1)); const x = q.left + q.width / 2; path(`M${x},${q.bottom} L${x},${n.top - 2}`); label(x + 6, q.bottom + 14, 'no'); }
+}
+const q4 = R('d4'), o5 = R('o5');
+path(`M${q4.left + q4.width / 2},${q4.bottom} L${q4.left + q4.width / 2},${o5.top + o5.height / 2} L${o5.left - 2},${o5.top + o5.height / 2}`);
+label(q4.left + q4.width / 2 + 6, q4.bottom + 14, 'no');
+// escalate -> medical officer ; query -> hospital
+const o2 = R('o2'), mo = R('mo'), o3 = R('o3'), ho = R('ho');
+path(`M${o2.right},${o2.top + o2.height / 2} L${o2.right + 18},${o2.top + o2.height / 2} L${o2.right + 18},${mo.top + mo.height / 2} L${mo.right + 2},${mo.top + mo.height / 2}`, {dash: true});
+path(`M${o3.right},${o3.top + o3.height / 2 + 6} L${o3.right + 30},${o3.top + o3.height / 2 + 6} L${o3.right + 30},${ho.top + ho.height / 2} L${ho.right + 2},${ho.top + ho.height / 2}`, {dash: true});
+</script>
+</body></html>

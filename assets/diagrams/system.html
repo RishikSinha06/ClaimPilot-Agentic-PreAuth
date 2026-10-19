@@ -1,0 +1,207 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 2400px; height: 1336px; background: #fff; font-family: Inter, "Segoe UI", Helvetica, Arial, sans-serif; color: #101828; position: relative; overflow: hidden; }
+  .b { position: absolute; border-radius: 12px; border: 2px solid; padding: 11px 13px; font-size: 14.5px; line-height: 1.38; background: #fff; }
+  .h { font-weight: 800; font-size: 16.5px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .sub { font-weight: 500; font-size: 12.5px; color: #475467; margin: -4px 0 6px 0; }
+  ul { list-style: none; }
+  li { margin: 2.5px 0; padding-left: 13px; position: relative; }
+  li::before { content: "•"; position: absolute; left: 0; color: #98a2b3; }
+  .n { display: inline-flex; width: 23px; height: 23px; border-radius: 50%; color: #fff; font-size: 12.5px; font-weight: 800; align-items: center; justify-content: center; flex: none; background: #101828; }
+  .s { display: inline-flex; min-width: 21px; height: 21px; padding: 0 5px; border-radius: 11px; color: #fff; font-size: 11.5px; font-weight: 800; align-items: center; justify-content: center; background: #D92D20; margin-right: 4px; vertical-align: 1px; }
+  .tag { display: inline-block; font-size: 10.5px; font-weight: 800; padding: 1px 6px; border-radius: 5px; margin-left: 3px; vertical-align: 1px; letter-spacing: .3px; }
+  .t-nlp { background: #D5EFEF; color: #0E6B6A; } .t-llm { background: #E9DDF8; color: #5B2F94; }
+  .t-tool { background: #DCE8FA; color: #1F4F99; } .t-guard { background: #FDE3CF; color: #93370D; }
+  .gate { font-weight: 700; color: #101828; }
+  .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: 12.5px; }
+  .agent { background: #EEF4FF; border-color: #3563E9; } .agent .n { background: #3563E9; }
+  .critic { background: #FFF4E5; border-color: #E07B00; } .critic .n { background: #E07B00; }
+  .decide { background: #E8F6EE; border-color: #12804F; } .decide .n { background: #12804F; }
+  .orch { background: #0B2E3C; border-color: #0B2E3C; color: #fff; }
+  .chip { display: inline-block; border-radius: 8px; padding: 6px 10px; margin: 4px 6px 0 0; font-size: 13.5px; line-height: 1.3; }
+  .orch .chip { background: #133F50; color: #E6F1F3; border: 1px solid #2B5E70; width: 292px; vertical-align: top; height: 76px; }
+  .orch .chip b { color: #fff; }
+  .state { background: #F9FAFB; border-color: #98A2B3; border-style: dashed; }
+  .state .k { display: inline-block; font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: 12.5px; background: #fff; border: 1px solid #D0D5DD; border-radius: 6px; padding: 2px 7px; margin: 3px 4px 0 0; }
+  .nlp { background: #EEF8F8; border-color: #0E7C7B; } .llm { background: #F5EFFC; border-color: #6B3FA0; }
+  .guard { background: #FFF5EE; border-color: #B54708; } .tool { background: #EFF5FE; border-color: #1F5FAE; }
+  .ollama { background: #F5EFFC; border-color: #6B3FA0; border-style: dashed; }
+  .data { background: #E9F7F7; border-color: #0E8A8A; }
+  .io { border-color: #667085; } .human { background: #FFF8E6; border-color: #8A5A00; }
+  .route { position: absolute; border-radius: 9px; padding: 7px 11px; font-size: 13.5px; border: 1.5px solid; line-height: 1.3; }
+  .lbl { position: absolute; font-size: 12.5px; font-weight: 700; background: #fff; padding: 0 4px; color: #475467; }
+  .flow { position: absolute; left: 40px; top: 1268px; width: 2320px; font-size: 14.5px; line-height: 1.75; color: #344054; }
+  .flow b { color: #101828; }
+</style></head>
+<body>
+<div style="position:absolute;left:40px;top:26px;font-size:34px;font-weight:800;letter-spacing:-.5px">PreAuth Agent — Detailed System Architecture</div>
+<div style="position:absolute;left:40px;top:74px;font-size:17px;color:#475467">Six agents on a shared state · orchestrator with run-time conditions, Critic loop and human-in-the-loop · local open-source LLM (Meta Llama 3.2 3B via Ollama) behind guardrails · deterministic tools for money, dates and policy rules · red numbers = step order</div>
+
+<svg style="position:absolute;left:0;top:0" width="2400" height="1336">
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#344054"/></marker>
+    <marker id="r" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#D92D20"/></marker>
+    <marker id="p" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6B3FA0"/></marker>
+    <marker id="t" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0E7C7B"/></marker>
+    <marker id="bl" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F5FAE"/></marker>
+    <marker id="br" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8A5A00"/></marker>
+  </defs>
+  <!-- hospital -> UI -->
+  <line x1="190" y1="352" x2="190" y2="384" stroke="#344054" stroke-width="2.5" marker-end="url(#a)"/>
+  <!-- UI -> orchestrator -->
+  <path d="M340,470 L360,470 L360,205 L376,205" fill="none" stroke="#344054" stroke-width="2.5" marker-end="url(#a)"/>
+  <!-- orchestrator <-> state -->
+  <line x1="1185" y1="282" x2="1185" y2="298" stroke="#344054" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="1215" y1="298" x2="1215" y2="284" stroke="#344054" stroke-width="2.5" marker-end="url(#a)"/>
+  <!-- state <-> agents -->
+  <g stroke="#344054" stroke-width="2" marker-end="url(#a)">
+    <line x1="497" y1="384" x2="497" y2="408"/><line x1="768" y1="384" x2="768" y2="408"/><line x1="1039" y1="384" x2="1039" y2="408"/>
+    <line x1="1310" y1="384" x2="1310" y2="408"/><line x1="1581" y1="384" x2="1581" y2="408"/><line x1="1852" y1="384" x2="1852" y2="408"/>
+  </g>
+  <g stroke="#344054" stroke-width="2" marker-end="url(#a)">
+    <line x1="517" y1="408" x2="517" y2="386"/><line x1="788" y1="408" x2="788" y2="386"/><line x1="1059" y1="408" x2="1059" y2="386"/>
+    <line x1="1330" y1="408" x2="1330" y2="386"/><line x1="1601" y1="408" x2="1601" y2="386"/><line x1="1872" y1="408" x2="1872" y2="386"/>
+  </g>
+  <!-- intake -> NLP / LLM -->
+  <path d="M700,752 L700,786" fill="none" stroke="#0E7C7B" stroke-width="2.5" marker-end="url(#t)"/>
+  <path d="M860,752 L860,786" fill="none" stroke="#6B3FA0" stroke-width="2.5" marker-end="url(#p)"/>
+  <!-- tool bus: research, executor, critic -> tools -->
+  <path d="M1039,752 L1039,775 L2200,775 L2200,786" fill="none" stroke="#1F5FAE" stroke-width="2.5" marker-end="url(#bl)"/>
+  <line x1="1330" y1="752" x2="1330" y2="775" stroke="#1F5FAE" stroke-width="2.5"/>
+  <line x1="1601" y1="752" x2="1601" y2="775" stroke="#1F5FAE" stroke-width="2.5"/>
+  <!-- decision -> LLM (letter) -->
+  <path d="M1790,752 L1790,764 L1250,764 L1250,786" fill="none" stroke="#6B3FA0" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#p)"/>
+  <!-- LLM -> Ollama -->
+  <line x1="1372" y1="930" x2="1396" y2="930" stroke="#6B3FA0" stroke-width="2.5" marker-end="url(#p)"/>
+  <line x1="1398" y1="980" x2="1374" y2="980" stroke="#6B3FA0" stroke-width="2.5" marker-end="url(#p)"/>
+  <!-- critic -> executor revise loop -->
+  <path d="M1515,412 C1500,388 1445,388 1428,412" fill="none" stroke="#D92D20" stroke-width="3" marker-end="url(#r)"/>
+  <!-- query -> hospital -->
+  <path d="M2360,492 L2384,492 L2384,110 L190,110 L190,126" fill="none" stroke="#1F5FAE" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#bl)"/>
+  <!-- outputs <- orchestrator -->
+  <path d="M1994,205 L2030,205" fill="none" stroke="#344054" stroke-width="2.5" marker-end="url(#a)"/>
+</svg>
+
+<!-- ============ left column ============ -->
+<div class="b io" style="left:40px;top:130px;width:300px;height:222px">
+  <div class="h">🏥 Hospital cashless desk <span class="s">1</span></div>
+  <ul><li>Pre-auth form: diagnosis, ICD-10, proposed treatment, cost heads</li><li>Doctor's free-text notes (abbreviations, names, phone)</li><li>Documents: ID card, reports, MLC / FIR</li><li>Policy number</li></ul>
+</div>
+<div class="b io" style="left:40px;top:388px;width:300px;height:296px">
+  <div class="h">🖥️ Streamlit UI <span class="s">2</span></div>
+  <div class="sub mono">app.py</div>
+  <ul><li>Sidebar: LLM backend + model, decision policy sliders</li><li>Live agent trace (callback per step)</li><li>Result tabs: Workflow · Execution sequence · LLM text pipeline · Eligibility · Amount · Critic · Letter · Plan · Messages · Audit</li><li>Batch evaluation vs ground truth</li></ul>
+</div>
+<div class="b human" style="left:40px;top:716px;width:300px;height:196px">
+  <div class="h">🩺 Medical officer <span class="s">13</span></div>
+  <div class="sub">human-in-the-loop</div>
+  <ul><li>Reviews every ESCALATE case</li><li>Approve / deny / query + remarks</li><li>Decision re-drafted, letter re-checked, audit-logged</li></ul>
+</div>
+<div class="b io" style="left:40px;top:944px;width:300px;height:202px">
+  <div class="h">🧪 Evaluation &amp; tests</div>
+  <ul><li>12 labelled synthetic cases (decision, amount, gold facts)</li><li>51 pytest checks incl. fake Ollama HTTP server</li><li><span class="mono">scripts/benchmark_llm.py</span> for real-model runs</li></ul>
+</div>
+
+<!-- ============ orchestrator + state ============ -->
+<div class="b orch" style="left:380px;top:130px;width:1614px;height:152px">
+  <div class="h" style="color:#fff">⚙️ Orchestrator <span class="mono" style="font-weight:500;color:#9FC9C8;font-size:13px">agents/orchestrator.py</span><span style="font-weight:500;font-size:13px;color:#9FC9C8;margin-left:12px">tool / LLM arrows below: blue = tools · purple = LLM · teal = NLP</span></div>
+  <div class="chip"><b>Plan executor</b><br>runs the Planner's task list in order, dispatching each task id to an agent method</div><div class="chip"><b>Run-time conditions</b><br>always · accident · eligible · escalated — skipped tasks are recorded</div><div class="chip"><b>Critic loop</b><br>REVISE → Executor recalculates with the Critic's instruction (max 2)</div><div class="chip"><b>Human-in-the-loop router</b><br>ESCALATE → medical officer · QUERY → hospital re-submits</div><div class="chip"><b>Audit recorder</b><br>every step, every tool / NLP / LLM / guardrail call, every message</div>
+</div>
+<div class="b state" style="left:380px;top:298px;width:1614px;height:86px">
+  <div class="h" style="font-size:15px">🗂️ Shared state (blackboard <span class="mono">ctx</span>) — agents never call each other, they read and write keys</div>
+  <span class="k">claim</span><span class="k">plan</span><span class="k">missing_docs</span><span class="k">prep</span><span class="k">extracted</span><span class="k">extracted_rules</span><span class="k">llm_extraction</span><span class="k">policy</span><span class="k">clauses</span><span class="k">benchmark</span><span class="k">eligibility</span><span class="k">calculation</span><span class="k">critic_history</span><span class="k">decision</span><span class="k">letter_info</span><span class="k">messages</span><span class="k">trace</span>
+</div>
+
+<!-- ============ agents ============ -->
+<div class="b agent" style="left:380px;top:410px;width:255px;height:342px">
+  <div class="h"><span class="n">1</span>Planner <span class="s">3</span></div>
+  <ul><li>Profile: emergency / planned, surgical / medical, age</li><li>Priority and 1-hour target</li><li>Required documents</li><li>Writes 11 tasks, each with a run-time condition</li><li>Output: <span class="mono">plan</span> → shared state</li></ul><div style="margin-top:10px;font-size:13px;color:#475467">Rule-based on purpose: the steps of a pre-auth are fixed by regulation; the plan adapts through conditions (accident, eligible, escalated).</div>
+</div>
+<div class="b agent" style="left:651px;top:410px;width:255px;height:342px">
+  <div class="h"><span class="n">2</span>Document Intake</div>
+  <ul><li><span class="s">4</span>check_documents</li><li><span class="s">5</span>preprocess_text <span class="tag t-nlp">NLP</span><br>P1–P9</li><li><span class="s">6</span>extract_facts <span class="tag t-llm">LLM</span><span class="tag t-guard">GUARD</span><br>P10–P13, cross-check with rules</li><li><span class="s">7</span>verify_accident_docs<br><span class="gate">◆ only if accident</span></li></ul>
+</div>
+<div class="b agent" style="left:922px;top:410px;width:255px;height:342px">
+  <div class="h"><span class="n">3</span>Policy Research <span class="s">8</span></div>
+  <ul><li>policy_lookup(policy_no) <span class="tag t-tool">TOOL</span></li><li>clause_search(terms): keyword scoring over policy wording <span class="tag t-tool">TOOL</span></li><li>tariff_lookup(procedure) <span class="tag t-tool">TOOL</span></li><li>Balance sum insured</li></ul>
+</div>
+<div class="b agent" style="left:1193px;top:410px;width:255px;height:342px">
+  <div class="h"><span class="n">4</span>Coverage Executor</div>
+  <ul><li><span class="s">9</span>Eligibility: member · policy period · initial / specific waiting · exclusions · PED <span class="tag t-tool">TOOL</span></li><li class="gate">◆ eligible? no → skip calculation</li><li><span class="s">10</span>Payable: room-rent ratio → ICU cap → sub-limit → R&amp;C cap → co-pay → balance SI <span class="tag t-tool">TOOL</span></li></ul>
+</div>
+<div class="b critic" style="left:1464px;top:410px;width:255px;height:342px">
+  <div class="h"><span class="n">5</span>Critic <span class="s">11</span></div>
+  <ul><li>Documents · ICD-10 vs diagnosis</li><li>LLM validity · grounding · LLM vs rules agreement · PII</li><li>PED disclosure · tariff benchmark</li><li>Independent recomputation · sanity · authority limit <span class="tag t-tool">TOOL</span></li><li class="gate">◆ PASS / REVISE / HOLD + confidence</li></ul>
+</div>
+<div class="b decide" style="left:1735px;top:410px;width:259px;height:342px">
+  <div class="h"><span class="n">6</span>Decision &amp; Letter</div>
+  <ul><li><span class="s">12</span><span class="gate">◆ Deny › Escalate › Query › Partial › Approve</span></li><li>Reasons with clause numbers</li><li>Letter: template → de-identify → LLM polish → re-identify → faithfulness check <span class="tag t-llm">LLM</span><span class="tag t-guard">GUARD</span></li></ul>
+</div>
+<div class="lbl" style="left:1446px;top:386px;color:#D92D20;font-size:11px;padding:0 3px">REVISE</div>
+
+<!-- ============ subsystems ============ -->
+<div class="b nlp" style="left:380px;top:788px;width:390px;height:358px">
+  <div class="h">🧹 NLP preprocessing <span class="tag t-nlp">P1–P9</span></div>
+  <div class="sub mono">agents/nlp/preprocess.py</div>
+  <ul><li><b>P1</b> Assemble diagnosis + treatment + notes</li><li><b>P2</b> Normalise: NFKC, quotes, "5mg"→"5 mg", spaces</li><li><b>P3</b> Expand 45 abbreviations: k/c/o, HTN, T2DM, RTA…</li><li><b>P4</b> De-identify: name, hospital, policy, phone, ID → [PLACEHOLDERS]</li><li><b>P5</b> Split into numbered sentences S1…Sn</li><li><b>P6</b> Tag entities with a clinical gazetteer</li><li><b>P7</b> Negation (NegEx scope, 8 tokens): "no h/o DM"</li><li><b>P8</b> Durations: "since 2018" → 8 y, "x 4 yrs" → 4 y</li><li><b>P9</b> Token budget (≈4 chars/token, 1,200 max)</li></ul>
+</div>
+<div class="b llm" style="left:782px;top:788px;width:590px;height:358px;font-size:13.8px">
+  <div class="h">🧠 LLM layer <span class="tag t-llm">P10–P13</span></div>
+  <div class="sub mono">agents/nlp/prompts.py · agents/llm.py · agents/nlp/parsing.py</div>
+  <ul>
+    <li><b>P10 Prompt builder</b>: system rules + allowed values + 1 worked example + de-identified, numbered sentences + request date</li>
+    <li><b>PII gate</b> <span class="tag t-guard">GUARD</span>: blocks the call if any original identifier is in the prompt</li>
+    <li><b>Ollama client</b>: <span class="mono">POST /api/generate</span> · model llama3.2 · <span class="mono">format</span> = JSON schema · temperature 0 · seed 42 · num_ctx 4096 · SHA-256 response cache</li>
+    <li><b>P11 Parse</b>: strip fences / chatter, extract first JSON object</li>
+    <li><b>P12 Validate</b> against the schema → on error send a <b>repair prompt</b> (max 2) → else <b>fall back to rule-based facts</b></li>
+    <li><b>P13 Ground</b> each condition in its cited sentence (drop negated / unsupported = hallucination guard), then <b>compare with rule extractor</b> → disagreements go to the Critic</li>
+  </ul>
+</div>
+<div class="b guard" style="left:1732px;top:788px;width:304px;height:358px">
+  <div class="h">🛡️ Guardrails</div>
+  <div class="sub mono">agents/guardrails.py</div>
+  <ul><li>PII gate before every LLM call</li><li>JSON-schema validation + repair</li><li>Rule fallback if the LLM fails</li><li>Evidence grounding</li><li>Letter faithfulness: same amounts, clauses, placeholders</li><li>Authority limit → human</li><li>Medical officer for risky cases</li></ul>
+</div>
+<div class="b tool" style="left:2048px;top:788px;width:312px;height:358px">
+  <div class="h">🔧 Deterministic tools</div>
+  <div class="sub mono">agents/tools.py · executor · critic</div>
+  <ul class="mono" style="font-size:12.5px"><li>policy_lookup()</li><li>clause_search()</li><li>tariff_lookup()</li><li>date_tools()</li><li>money_calculator()</li><li>independent_recompute()</li><li>icd10_lookup()</li></ul>
+  <div style="font-size:12.5px;color:#475467;margin-top:6px">LLM never does maths or dates</div>
+</div>
+
+<!-- ============ data ============ -->
+<div class="b data" style="left:380px;top:1162px;width:1980px;height:62px;display:flex;align-items:center;gap:30px;font-size:14px">
+  <b style="font-size:15px">🗄️ Data (synthetic)</b>
+  <span class="mono">policies.json</span><span>5 policies</span>
+  <span class="mono">policy_clauses.json</span><span>11 clauses</span>
+  <span class="mono">tariffs.json</span><span>10 benchmarks</span>
+  <span class="mono">claims.json</span><span>12 cases + gold labels</span>
+  <span class="mono">audit/audit_log.jsonl</span><span>every decision</span>
+</div>
+
+<!-- ============ right column ============ -->
+<div class="b io" style="left:2034px;top:130px;width:326px;height:262px;border-color:#12804F">
+  <div class="h">📤 Outputs <span class="s">14</span></div>
+  <ul><li>Decision + Critic confidence</li><li>Payable amount waterfall</li><li>Reasons with policy clause numbers</li><li>Letter to the hospital</li><li>Execution sequence diagram</li><li>Full audit record (JSON)</li></ul>
+</div>
+<div class="route" style="left:2034px;top:414px;width:326px;background:#E8F6EE;border-color:#12804F"><b>APPROVE / PARTIAL</b> → cashless authorised</div>
+<div class="route" style="left:2034px;top:470px;width:326px;background:#E7F0FB;border-color:#1F5FAE"><b>QUERY</b> → hospital uploads documents → re-run from <span class="s">2</span></div>
+<div class="route" style="left:2034px;top:546px;width:326px;background:#FDECEA;border-color:#B42318"><b>DENY</b> → letter cites the policy clause</div>
+<div class="route" style="left:2034px;top:654px;width:326px;background:#F2ECFA;border-color:#6B3FA0"><b>ESCALATE</b> → medical officer reviews <span class="s">13</span></div>
+
+<div class="b ollama" style="left:1400px;top:788px;width:320px;height:358px">
+  <div class="h">🦙 Ollama runtime</div>
+  <div class="sub mono">localhost:11434 · runs offline</div><div style="font-size:12px;color:#6B3FA0;font-weight:700;margin:-2px 0 4px">← POST /api/generate · → JSON + token counts</div>
+  <ul><li><b>Meta Llama 3.2 3B Instruct</b> (open weights)</li><li>4-bit GGUF, ≈2.0 GB, llama.cpp on CPU or GPU</li><li>Tokenizer: BPE, 128K vocabulary</li><li>Grammar-constrained decoding from the JSON schema</li><li>Swap-in: llama3.2:1b, qwen2.5:3b, phi3.5, mistral</li><li>No Ollama? Simulated LLM keeps the demo running</li></ul>
+</div>
+<div class="lbl" style="left:1420px;top:756px;color:#6B3FA0;font-size:11.5px">letter polish</div>
+<div class="lbl" style="left:1150px;top:102px;color:#1F5FAE">QUERY → hospital re-submits documents</div>
+
+<div class="flow">
+  <b>End-to-end flow:</b>
+  <span class="s">1</span>hospital submits request → <span class="s">2</span>UI calls <span class="mono">run(claim)</span> → <span class="s">3</span>Planner writes the plan → <span class="s">4</span>documents checked → <span class="s">5</span>notes cleaned P1–P9 → <span class="s">6</span>LLM extracts facts P10–P13 behind the PII gate, validated, grounded and cross-checked → <span class="s">7</span>MLC / FIR if accident →
+  <span class="s">8</span>policy, clauses and tariff fetched → <span class="s">9</span>eligibility rules → <span class="s">10</span>payable waterfall (if eligible) → <span class="s">11</span>Critic re-checks, may send back to <span class="s">10</span> → <span class="s">12</span>decision + letter (LLM polish, faithfulness check) → <span class="s">13</span>medical officer if escalated → <span class="s">14</span>result, letter and audit record shown in the UI
+</div>
+</body></html>

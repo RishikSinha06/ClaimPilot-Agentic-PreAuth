@@ -1,0 +1,35 @@
+# Visual theme for the PreAuth Agent dashboard. Light and dark are both defined;
+# Streamlit follows the system setting and the user can switch in Settings.
+[theme]
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap, sans-serif"
+headingFont = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap, sans-serif"
+headingFontWeights = [800, 700, 700, 600, 600, 600]
+baseRadius = "0.65rem"
+buttonRadius = "0.65rem"
+showSidebarBorder = true
+
+[theme.light]
+primaryColor = "#1d5fae"
+backgroundColor = "#f5f7fa"
+secondaryBackgroundColor = "#ffffff"
+textColor = "#101828"
+borderColor = "#e3e7ee"
+# validated categorical palette (light steps): blue, orange, aqua, yellow, magenta, green, violet, red
+chartCategoricalColors = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#6250d6", "#e34948"]
+
+[theme.light.sidebar]
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f2f4f7"
+
+[theme.dark]
+primaryColor = "#3987e5"
+backgroundColor = "#0d1117"
+secondaryBackgroundColor = "#171c25"
+textColor = "#e7eaf0"
+borderColor = "#262d3a"
+# same hues, stepped for the dark surface
+chartCategoricalColors = ["#3987e5", "#d95926", "#199e70", "#c98500", "#d55181", "#008300", "#9085e9", "#e66767"]
+
+[theme.dark.sidebar]
+backgroundColor = "#10141b"
+secondaryBackgroundColor = "#171c25"

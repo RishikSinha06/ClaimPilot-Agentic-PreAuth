@@ -1,0 +1,62 @@
+{
+  "appendectomy": {
+    "label": "Laparoscopic appendectomy",
+    "min": 80000,
+    "max": 150000,
+    "basis": "package"
+  },
+  "cataract": {
+    "label": "Phaco cataract surgery + IOL (per eye)",
+    "min": 25000,
+    "max": 55000,
+    "basis": "package"
+  },
+  "joint replacement": {
+    "label": "Total knee replacement (unilateral)",
+    "min": 180000,
+    "max": 320000,
+    "basis": "package"
+  },
+  "hernia": {
+    "label": "Laparoscopic hernia repair",
+    "min": 60000,
+    "max": 120000,
+    "basis": "package"
+  },
+  "rhinoplasty": {
+    "label": "Rhinoplasty",
+    "min": 90000,
+    "max": 200000,
+    "basis": "package"
+  },
+  "angioplasty": {
+    "label": "PTCA with single stent",
+    "min": 150000,
+    "max": 280000,
+    "basis": "package"
+  },
+  "gallstone": {
+    "label": "Laparoscopic cholecystectomy",
+    "min": 70000,
+    "max": 150000,
+    "basis": "package"
+  },
+  "fracture fixation": {
+    "label": "ORIF femur fracture",
+    "min": 100000,
+    "max": 200000,
+    "basis": "package"
+  },
+  "medical management": {
+    "label": "Medical management (per day)",
+    "min": 6000,
+    "max": 14000,
+    "basis": "per_day"
+  },
+  "dental surgery": {
+    "label": "Surgical removal of impacted tooth",
+    "min": 15000,
+    "max": 40000,
+    "basis": "package"
+  }
+}
