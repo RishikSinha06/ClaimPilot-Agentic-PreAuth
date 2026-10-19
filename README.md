@@ -1,6 +1,6 @@
 # ClaimPilot — Agentic AI for Health-Insurance Cashless Pre-Authorisation
 
-CA-3 Agentic AI Proof of Concept · Domain: Healthcare / Health Insurance (TPA operations)
+CA-3 Agentic AI Proof of Concept · Domain: Healthcare / Healthcare intelligence (TPA operations)
 
 Six cooperating agents take a hospital's cashless pre-authorisation request and return a validated
 decision (Approve / Partial / Query / Deny / Escalate), the amount, reasons with policy clause numbers,
