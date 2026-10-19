@@ -124,7 +124,7 @@
 <text x="22" y="581" font-size="11" font-weight="700" fill="#98A2B3">18</text>
 <line x1="608.0" y1="604" x2="1051.0" y2="604" stroke="#6B3FA0" stroke-width="1.5" marker-end="url(#mllm)"/>
 <rect x="611.0" y="588" width="418.16" height="14" fill="#ffffff" opacity="0.92"/>
-<text x="614.0" y="599" font-size="11.5" font-weight="400" fill="#6B3FA0">Mock LLM (simulated, offline) · extract facts: ~551→32 tokens (…</text>
+<text x="614.0" y="599" font-size="11.5" font-weight="400" fill="#6B3FA0">Mock LLM (simulated, offline) · extract facts: ~600→32 tokens (…</text>
 <text x="22" y="608" font-size="11" font-weight="700" fill="#98A2B3">19</text>
 <line x1="596.0" y1="631" x2="305.0" y2="631" stroke="#667085" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#mreturn)"/>
 <rect x="174.83999999999997" y="615" width="418.16" height="14" fill="#ffffff" opacity="0.92"/>
@@ -236,7 +236,7 @@
 <text x="22" y="1337" font-size="11" font-weight="700" fill="#98A2B3">46</text>
 <line x1="1812.0" y1="1360" x2="1065.0" y2="1360" stroke="#6B3FA0" stroke-width="1.5" marker-end="url(#mllm)"/>
 <rect x="1390.84" y="1344" width="418.16" height="14" fill="#ffffff" opacity="0.92"/>
-<text x="1393.84" y="1355" font-size="11.5" font-weight="400" fill="#6B3FA0">Mock LLM (simulated, offline) · polish letter: ~219→140 tokens …</text>
+<text x="1393.84" y="1355" font-size="11.5" font-weight="400" fill="#6B3FA0">Mock LLM (simulated, offline) · polish letter: ~268→140 tokens …</text>
 <text x="22" y="1364" font-size="11" font-weight="700" fill="#98A2B3">47</text>
 <line x1="1812.0" y1="1387" x2="913.0" y2="1387" stroke="#B54708" stroke-width="1.5" marker-end="url(#mguardrail)"/>
 <rect x="1635.56" y="1371" width="173.44000000000003" height="14" fill="#ffffff" opacity="0.92"/>

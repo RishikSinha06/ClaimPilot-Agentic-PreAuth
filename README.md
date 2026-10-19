@@ -1,4 +1,4 @@
-# PreAuth Agent — Agentic AI for Health-Insurance Cashless Pre-Authorisation
+# ClaimPilot — Agentic AI for Health-Insurance Cashless Pre-Authorisation
 
 CA-3 Agentic AI Proof of Concept · Domain: Healthcare / Health Insurance (TPA operations)
 
@@ -234,6 +234,7 @@ data/                          synthetic policies, clauses, tariffs, 12 labelled
 tests/                         87 tests incl. fake Ollama server and fault injection
 scripts/                       benchmark_llm.py, fault_injection.py, build_diagrams.py
 results/                       measured benchmark and fault-injection tables
+docs/                          CA-3 report (ClaimPilot_CA3_Report.docx) and presentation (ClaimPilot_CA3.pptx)
 assets/                        architecture diagrams (PNG) and their sources
 audit/                         audit_log.jsonl, hash-chained (created at run time)
 ```

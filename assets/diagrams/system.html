@@ -36,7 +36,7 @@
   .flow b { color: #101828; }
 </style></head>
 <body>
-<div style="position:absolute;left:40px;top:26px;font-size:34px;font-weight:800;letter-spacing:-.5px">PreAuth Agent — Detailed System Architecture</div>
+<div style="position:absolute;left:40px;top:26px;font-size:34px;font-weight:800;letter-spacing:-.5px">ClaimPilot — Detailed System Architecture</div>
 <div style="position:absolute;left:40px;top:74px;font-size:17px;color:#475467">Six agents on a shared state · orchestrator with run-time conditions, Critic loop and human-in-the-loop · local open-source LLM (Meta Llama 3.2 3B via Ollama) behind guardrails · deterministic tools for money, dates and policy rules · red numbers = step order</div>
 
 <svg style="position:absolute;left:0;top:0" width="2400" height="1336">
@@ -101,7 +101,7 @@
 </div>
 <div class="b io" style="left:40px;top:944px;width:300px;height:202px">
   <div class="h">🧪 Evaluation &amp; tests</div>
-  <ul><li>12 labelled synthetic cases (decision, amount, gold facts)</li><li>51 pytest checks incl. fake Ollama HTTP server</li><li><span class="mono">scripts/benchmark_llm.py</span> for real-model runs</li></ul>
+  <ul><li>12 labelled synthetic cases (decision, amount, gold facts)</li><li>87 pytest checks incl. fake Ollama server and fault injection</li><li><span class="mono">scripts/benchmark_llm.py</span> for real-model runs</li></ul>
 </div>
 
 <!-- ============ orchestrator + state ============ -->
@@ -145,7 +145,7 @@
 <div class="b nlp" style="left:380px;top:788px;width:390px;height:358px">
   <div class="h">🧹 NLP preprocessing <span class="tag t-nlp">P1–P9</span></div>
   <div class="sub mono">agents/nlp/preprocess.py</div>
-  <ul><li><b>P1</b> Assemble diagnosis + treatment + notes</li><li><b>P2</b> Normalise: NFKC, quotes, "5mg"→"5 mg", spaces</li><li><b>P3</b> Expand 45 abbreviations: k/c/o, HTN, T2DM, RTA…</li><li><b>P4</b> De-identify: name, hospital, policy, phone, ID → [PLACEHOLDERS]</li><li><b>P5</b> Split into numbered sentences S1…Sn</li><li><b>P6</b> Tag entities with a clinical gazetteer</li><li><b>P7</b> Negation (NegEx scope, 8 tokens): "no h/o DM"</li><li><b>P8</b> Durations: "since 2018" → 8 y, "x 4 yrs" → 4 y</li><li><b>P9</b> Token budget (≈4 chars/token, 1,200 max)</li></ul>
+  <ul><li><b>P1</b> Assemble diagnosis + treatment + notes</li><li><b>P2</b> Normalise: NFKC, quotes, "5mg"→"5 mg", spaces</li><li><b>P3</b> Expand 41 abbreviations: k/c/o, HTN, T2DM, RTA…</li><li><b>P4</b> De-identify: name, hospital, policy, phone, ID → [PLACEHOLDERS]</li><li><b>P5</b> Split into numbered sentences S1…Sn</li><li><b>P6</b> Tag entities with a clinical gazetteer</li><li><b>P7</b> Negation (NegEx scope, 8 tokens): "no h/o DM"</li><li><b>P8</b> Durations: "since 2018" → 8 y, "x 4 yrs" → 4 y</li><li><b>P9</b> Token budget (≈4 chars/token, 1,200 max)</li></ul>
 </div>
 <div class="b llm" style="left:782px;top:788px;width:590px;height:358px;font-size:13.8px">
   <div class="h">🧠 LLM layer <span class="tag t-llm">P10–P13</span></div>

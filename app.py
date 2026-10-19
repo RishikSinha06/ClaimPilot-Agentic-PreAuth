@@ -1,4 +1,4 @@
-"""PreAuth Agent — Agentic AI PoC for health-insurance cashless pre-authorisation.
+"""ClaimPilot — Agentic AI PoC for health-insurance cashless pre-authorisation.
 
 Run:  streamlit run app.py
 Optional local LLM:  ollama pull llama3.2   (then choose "Ollama" in the sidebar)
@@ -28,7 +28,7 @@ from viz.sequence import message_count, render_svg
 
 ROOT = Path(__file__).resolve().parent
 AUDIT_LOG = ROOT / "audit" / "audit_log.jsonl"
-st.set_page_config(page_title="PreAuth Agent", page_icon="🏥", layout="wide")
+st.set_page_config(page_title="ClaimPilot", page_icon="🏥", layout="wide")
 st.markdown(ui.CSS, unsafe_allow_html=True)
 
 DECISION_PASTEL = {"APPROVE": ("#0f7b4d", "#dcf5e7"), "PARTIAL": ("#8a5a00", "#fff1cc"), "QUERY": ("#1f5fae", "#dbeafe"),

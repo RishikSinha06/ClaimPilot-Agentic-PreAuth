@@ -2,7 +2,7 @@
 
     python scripts/build_diagrams.py            # writes HTML / SVG / DOT sources
     python scripts/build_diagrams.py --png      # also renders PNGs (needs `pip install playwright`
-                                                #   and `playwright install chromium`)
+                                                #   and, without Microsoft Edge, `playwright install chromium`)
 
 Outputs in assets/diagrams/ and assets/:
   llm_pipeline.html      -> architecture_llm_pipeline.png   (stages P1-P13 with live example data)
@@ -160,7 +160,10 @@ def main(png: bool):
             ("sequence_full.svg", "architecture_sequence.png"), ("sequence_part1.svg", "sequence_part1.png"),
             ("sequence_part2.svg", "sequence_part2.png"), ("decision_logic.html", "architecture_decision_logic.png")]
     with sync_playwright() as p:
-        b = p.chromium.launch()
+        try:
+            b = p.chromium.launch(channel="msedge")  # use an installed Edge if there is one
+        except Exception:  # noqa: BLE001
+            b = p.chromium.launch()
         for src, out in jobs:
             path = D / src
             if not path.exists():

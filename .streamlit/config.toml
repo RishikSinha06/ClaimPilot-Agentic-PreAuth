@@ -1,4 +1,4 @@
-# Visual theme for the PreAuth Agent dashboard. Light and dark are both defined;
+# Visual theme for the ClaimPilot dashboard. Light and dark are both defined;
 # Streamlit follows the system setting and the user can switch in Settings.
 [theme]
 font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap, sans-serif"

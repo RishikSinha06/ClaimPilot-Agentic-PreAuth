@@ -1,4 +1,4 @@
-# PreAuth Agent: Project Guide
+# ClaimPilot: Project Guide
 
 *A from-scratch explanation of what this project does, how the backend runs, and how its parts talk
 to each other. Read it top to bottom once, then use the section headings as a reference.*

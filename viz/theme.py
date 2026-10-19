@@ -198,14 +198,14 @@ def hero(engine: str, simulated: bool, fault: str | None) -> str:
         ("🤖 6 cooperating agents", "🔒 PII never leaves the machine", "🧮 Money & rules in deterministic code",
          "🩺 Human in the loop", "🧪 Synthetic data")]
     return (f'<div class="pa-hero"><div class="pa-hero-top"><div class="pa-logo">🏥</div><div>'
-            f'<div class="pa-hero-title">PreAuth Agent</div>'
+            f'<div class="pa-hero-title">ClaimPilot</div>'
             f'<div class="pa-hero-sub">Agentic AI for cashless health-insurance pre-authorisation: a hospital request '
             f'becomes a validated, explained decision and a letter, with a medical officer for risky cases.</div>'
             f'</div></div><div class="pa-hero-badges">{"".join(badges)}</div></div>')
 
 
 def sidebar_brand() -> str:
-    return ('<div class="pa-side-brand"><div class="lg">🏥</div><div><div class="nm">PreAuth Agent</div>'
+    return ('<div class="pa-side-brand"><div class="lg">🏥</div><div><div class="nm">ClaimPilot</div>'
             '<div class="sb">CA-3 · Agentic AI PoC</div></div></div>')
 
 
